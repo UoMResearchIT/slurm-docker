@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  slurm:
+    hostname: slurm
+    build:
+      context: .
+    volumes:
+      - clusterstate:/state
+      - clusterscratch:/scratch
+      - ./bin/docker-entrypoint.sh:/etc/slurm-llnl/docker-entrypoint.sh
+      - ./etc/slurm.conf:/etc/slurm-llnl/slurm.conf
+    ports:
+      - "2022:22"
+
+volumes:
+  clusterstate:
+  clusterscratch:
