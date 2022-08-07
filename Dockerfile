@@ -21,6 +21,7 @@ RUN apt-get update && apt-get install -y \
 
 COPY bin/docker-entrypoint.sh /etc/slurm-llnl/
 COPY etc/slurm.conf /etc/slurm-llnl/
+COPY examples /usr/share/slurm-examples
 
 RUN useradd -ms /bin/bash user
 
