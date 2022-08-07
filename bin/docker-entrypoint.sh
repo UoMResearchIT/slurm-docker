@@ -2,6 +2,11 @@
 
 set -e
 
+newpassword=$(pwgen -N 1 12)
+chpasswd <<< "user:${newpassword}"
+
+echo "Set password for 'user' to '$newpassword'"
+
 service syslog-ng start
 service munge start
 service slurmctld start
