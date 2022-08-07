@@ -16,19 +16,13 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && apt-get install -y \
-    nano \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN apt-get update && apt-get install -y \
-    unzip python3 python3-pip python-is-python3  \
+    nano pwgen \
     && rm -rf /var/lib/apt/lists/*
 
 COPY bin/docker-entrypoint.sh /etc/slurm-llnl/
 COPY etc/slurm.conf /etc/slurm-llnl/
 
 RUN useradd -ms /bin/bash user
-
-RUN echo 'user:ughiFail1EiF' | chpasswd
 
 RUN mkdir /state
 RUN chown slurm:slurm /state
