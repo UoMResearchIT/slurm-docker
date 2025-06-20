@@ -8,6 +8,7 @@ chpasswd <<< "user:${newpassword}"
 echo "Set password for 'user' to '$newpassword'"
 
 touch /var/log/slurm-llnl/accounting.log
+chown slurm:slurm /var/log/slurm-llnl/accounting.log
 chmod a+r /var/log/slurm-llnl/accounting.log
 
 service syslog-ng start
