@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
 RUN apt-get update && apt-get install -y \
     slurm-client \
@@ -23,8 +23,8 @@ RUN apt-get update && apt-get install -y \
     sssd-ldap \
     && rm -rf /var/lib/apt/lists/*
 
-COPY bin/docker-entrypoint.sh /etc/slurm-llnl/
-COPY etc/slurm.conf /etc/slurm-llnl/
+COPY bin/docker-entrypoint.sh /etc/slurm/
+COPY etc/slurm.conf /etc/slurm/
 COPY etc/sssd.conf /etc/sssd/sssd.conf
 COPY examples /usr/share/slurm-examples
 
@@ -41,4 +41,4 @@ RUN chown slurm:slurm /state
 RUN mkdir /scratch/user
 RUN chown user:user /scratch/user
 
-CMD ["/etc/slurm-llnl/docker-entrypoint.sh"]
+CMD ["/etc/slurm/docker-entrypoint.sh"]

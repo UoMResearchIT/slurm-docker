@@ -7,8 +7,8 @@ services:
     volumes:
       - clusterstate:/state
       - clusterscratch:/scratch
-      - ./bin/docker-entrypoint.sh:/etc/slurm-llnl/docker-entrypoint.sh
-      - ./etc/slurm.conf:/etc/slurm-llnl/slurm.conf
+      - ./bin/docker-entrypoint.sh:/etc/slurm/docker-entrypoint.sh
+      - ./etc/slurm.conf:/etc/slurm/slurm.conf
       - clusterhome:/home
     ports:
       - "127.0.0.1:2022:22"
