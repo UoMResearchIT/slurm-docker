@@ -16,6 +16,8 @@ service munge start
 service slurmctld start
 service slurmd start
 service ssh start
+rm -f /var/run/sssd.pid
+service sssd start
 
 while [ ! -r "/var/log/syslog" ]; do
     sleep 1

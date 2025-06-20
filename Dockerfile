@@ -19,11 +19,18 @@ RUN apt-get update && apt-get install -y \
     nano pwgen \
     && rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update && apt-get install -y \
+    sssd-ldap \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY bin/docker-entrypoint.sh /etc/slurm-llnl/
 COPY etc/slurm.conf /etc/slurm-llnl/
+COPY etc/sssd.conf /etc/sssd/sssd.conf
 COPY examples /usr/share/slurm-examples
 
+RUN chmod u=rw,g=,o= /etc/sssd/sssd.conf
 RUN useradd -ms /bin/bash user
+RUN pam-auth-update --enable mkhomedir
 
 RUN mkdir /state
 RUN chown slurm:slurm /state
