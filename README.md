@@ -36,11 +36,11 @@ This repository defines a Docker environment for running the
 
 - Bring up the docker-compose stack:
   ```
-  docker-compose up -d
+  docker compose up -d
   ```
   Check the logs with
   ```
-  docker-compose logs
+  docker compose logs
   ```
   and read out the user's password from the start of the log.  It should appear as
   ```
