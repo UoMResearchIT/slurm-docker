@@ -11,7 +11,8 @@ services:
       - ./etc/slurm.conf:/etc/slurm-llnl/slurm.conf
       - clusterhome:/home
     ports:
-      - "127.0.0.1:2022:22"
+      - "2022:22"
+    restart: unless-stopped
 
 volumes:
   clusterstate:
