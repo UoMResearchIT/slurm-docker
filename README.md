@@ -16,6 +16,17 @@ This repository defines a Docker environment for running the
 - The "compute node" represented by the Slurm daemxon is configured to
   have a single socket with a single core
 
+- Users can also log in via ssh using University of Manchester
+  credentials, provided that the LDAP server ldap.manchester.ac.uk is
+  accessible. This will be the case from machines on campus, and
+  possibly when connecting through GlobalProtect.
+  
+- The /home/USERNAME directory is a persistent volume
+
+- The SLURM job state directory is also a persistent volume, so queue state should survive container restarts and recreations
+
+- Running jobs and user sessions would be killed if the container were restarted
+
 ## Requirements
 
 - Docker
@@ -40,10 +51,8 @@ This repository defines a Docker environment for running the
   ```
   ssh -p 2022 user@localhost
   ```
-- Change to the scratch directory (which is a persistent volume):
-  ```
-  cd /scratch/user
-  ```
+- Alternatively, try to log in using UoM credentials. This may fail if the LDAP server is not accessible.
+
 - Submit a test job:
   ```
   sbatch /usr/share/slurm-examples/testjob.sh
