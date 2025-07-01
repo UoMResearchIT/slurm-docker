@@ -27,6 +27,8 @@ This repository defines a Docker environment for running the
 
 - Running jobs and user sessions would be killed if the container were restarted
 
+- LAMMPS is installed and available on the PATH
+
 ## Requirements
 
 - Docker
