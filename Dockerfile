@@ -13,11 +13,13 @@ RUN apt-get update && apt-get install -y \
     slurmctld \
     slurmd \
     sssd-ldap \
+    sssd-tools \
     && rm -rf /var/lib/apt/lists/*
 
 COPY bin/docker-entrypoint.sh /etc/slurm-llnl/
 COPY etc/slurm.conf /etc/slurm-llnl/
 COPY etc/sssd.conf /etc/sssd/sssd.conf
+COPY etc/defaults_sssd /etc/default/sssd
 COPY examples /usr/share/slurm-examples
 
 RUN chmod u=rw,g=,o= /etc/sssd/sssd.conf

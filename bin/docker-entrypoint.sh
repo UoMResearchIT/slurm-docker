@@ -2,6 +2,8 @@
 
 set -e
 
+echo "ldap_default_authtok = ${LLDAP_LDAP_USER_PASS}" >> /etc/sssd/sssd.conf
+
 newpassword=$(pwgen -N 1 12)
 chpasswd <<< "user:${newpassword}"
 
@@ -16,6 +18,7 @@ service munge start
 service slurmctld start
 service slurmd start
 service ssh start
+
 rm -f /var/run/sssd.pid
 service sssd start
 
