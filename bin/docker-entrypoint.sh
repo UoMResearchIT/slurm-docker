@@ -1,13 +1,14 @@
 #!/bin/bash
 
 set -e
-
-cat <<EOF > /etc/sssd/conf.d/ldap-auth.conf
+authtokfile=/etc/sssd/conf.d/ldap-auth.conf
+touch $authtokfile
+chmod u=rw,g=,o= $authtokfile
+cat <<EOF > $authtokfile
 [domain/LDAP]
 ldap_default_authtok = ${LLDAP_DEFAULT_AUTH_TOKEN}
 EOF
 
-#echo "ldap_default_authtok = ${LLDAP_DEFAULT_AUTH_TOKEN}" >> /etc/sssd/sssd.d/ldap-auth.conf
 unset LLDAP_DEFAULT_AUTH_TOKEN
 newpassword=$(pwgen -N 1 12)
 chpasswd <<< "user:${newpassword}"
