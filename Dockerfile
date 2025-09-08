@@ -44,4 +44,4 @@ RUN chown user:user /scratch/user
 RUN mkdir /opt/lammps && curl https://download.lammps.org/static/lammps-linux-x86_64-12Jun2025.tar.gz | tar xz --strip-components 1 -C /opt/lammps
 RUN cp -a /opt/lammps/etc/profile.d/lammps.sh /etc/profile.d && echo 'export PATH=/opt/lammps/bin:$PATH' >>/etc/profile.d/lammps.sh
 
-CMD ["/etc/slurm-llnl/docker-entrypoint.sh"]
+CMD ["/docker-entrypoint.sh"]
