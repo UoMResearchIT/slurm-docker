@@ -11,6 +11,7 @@ services:
             - ./etc/sssd.conf:/etc/sssd/sssd.conf
             - clusterhome:/home
             - ./etc/sshd_sssd.conf:/etc/ssh/sshd_config.d/sssd.conf
+            - hostkeys:/etc/ssh/keys
         ports:
             - "2022:22"
         restart: unless-stopped
@@ -70,4 +71,5 @@ volumes:
     clusterstate:
     clusterscratch:
     clusterhome:
+    hostkeys:
     lldap_data:

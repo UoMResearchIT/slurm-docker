@@ -19,6 +19,13 @@ touch /var/log/slurm-llnl/accounting.log
 chown slurm:slurm /var/log/slurm-llnl/accounting.log
 chmod a+r /var/log/slurm-llnl/accounting.log
 
+rm -f /etc/ssh/ssh_host_*_key{,.pub}
+
+[ -r /etc/ssh/keys/ssh_host_dsa_key ] || ssh-keygen -q -N "" -t dsa -f /etc/ssh/keys/ssh_host_dsa_key
+[ -r /etc/ssh/keys/ssh_host_rsa_key ] || ssh-keygen -q -N "" -t rsa -b 4096 -f /etc/ssh/keys/ssh_host_rsa_key
+[ -r /etc/ssh/keys/ssh_host_ecdsa_key ] || ssh-keygen -q -N "" -t ecdsa -f /etc/ssh/keys/ssh_host_ecdsa_key
+[ -r /etc/ssh/keys/ssh_host_ed25519_key ] || ssh-keygen -q -N "" -t ed25519 -f /etc/ssh/keys/ssh_host_ed25519_key
+
 service syslog-ng start
 service munge start
 service slurmctld start

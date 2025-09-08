@@ -21,7 +21,8 @@ COPY etc/slurm.conf /etc/slurm-llnl/
 COPY etc/sssd.conf /etc/sssd/sssd.conf
 COPY etc/defaults_sssd /etc/default/sssd
 COPY examples /usr/share/slurm-examples
-
+COPY etc/sshd_hostkeys.conf /etc/ssh/sshd_config.d/hostkeys.conf
+RUN mkdir /etc/ssh/keys
 RUN chmod u=rw,g=,o= /etc/sssd/sssd.conf
 RUN useradd -ms /bin/bash user
 RUN pam-auth-update --enable mkhomedir
