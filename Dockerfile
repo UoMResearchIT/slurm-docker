@@ -28,6 +28,8 @@ RUN chmod u=rw,g=,o= /etc/sssd/sssd.conf
 RUN useradd -ms /bin/bash user
 RUN pam-auth-update --enable mkhomedir
 
+RUN chmod -x /etc/update-motd.d/*
+
 RUN mkdir /state
 RUN chown slurm:slurm /state
 
