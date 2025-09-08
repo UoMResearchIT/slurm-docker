@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y \
     emacs-nox \
     && rm -rf /var/lib/apt/lists/*
 
-COPY bin/docker-entrypoint.sh /etc/slurm-llnl/
+COPY bin/docker-entrypoint.sh /
 COPY etc/slurm.conf /etc/slurm-llnl/
 COPY etc/sssd.conf /etc/sssd/sssd.conf
 COPY etc/defaults_sssd /etc/default/sssd
