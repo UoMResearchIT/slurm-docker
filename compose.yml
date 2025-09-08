@@ -8,11 +8,16 @@ services:
             - clusterscratch:/scratch
             - ./bin/docker-entrypoint.sh:/etc/slurm-llnl/docker-entrypoint.sh
             - ./etc/slurm.conf:/etc/slurm-llnl/slurm.conf
-            #      - ./etc/sssd.conf:/etc/sssd/sssd.conf
+            - ./etc/sssd.conf:/etc/sssd/sssd.conf
             - clusterhome:/home
+            - ./etc/sshd_sssd.conf:/etc/ssh/sshd_config.d/sssd.conf
         ports:
             - "2022:22"
         restart: unless-stopped
+        depends_on:
+            - lldap
+        environment:
+            - LLDAP_DEFAULT_AUTH_TOKEN=${LLDAP_DEFAULT_AUTH_TOKEN?}
 
     lldap:
         image: lldap/lldap:stable
@@ -25,8 +30,11 @@ services:
             - "127.0.0.1:17170:17170"
         volumes:
             - "lldap_data:/data"
+            - "./bootstrap:/bootstrap"
+            - "./bin/setup.sh:/setup.sh"
             # Alternatively, you can mount a local folder
             # - "./lldap_data:/data"
+        restart: unless-stopped
         environment:
             - UID=1000
             - GID=1000
@@ -35,6 +43,7 @@ services:
             - LLDAP_KEY_SEED=${LLDAP_KEY_SEED?}
             - LLDAP_LDAP_BASE_DN=dc=royce-hpc-training,dc=org
             - LLDAP_LDAP_USER_PASS=${LLDAP_LDAP_USER_PASS?}
+            - LLDAP_ADMIN_PASSWORD=${LLDAP_LDAP_USER_PASS?}
             # If using LDAPS, set enabled true and configure cert and key path
             # - LLDAP_LDAPS_OPTIONS__ENABLED=true
             # - LLDAP_LDAPS_OPTIONS__CERT_FILE=/path/to/certfile.crt
@@ -51,6 +60,11 @@ services:
             # - LLDAP_SMTP_OPTIONS__PASSWORD=PasswordGoesHere # The SMTP password
             # - LLDAP_SMTP_OPTIONS__FROM=no-reply <no-reply@example.com> # The header field, optional: how the sender appears in the email. The first is a free-form name, followed by an email between <>.
             # - LLDAP_SMTP_OPTIONS__TO=admin <admin@example.com> # Same for reply-to, optional.
+        post_start:
+          - command: /setup.sh
+            user: root
+            environment:
+              - LLDAP_DEFAULT_AUTH_TOKEN=${LLDAP_DEFAULT_AUTH_TOKEN?}
 
 volumes:
     clusterstate:

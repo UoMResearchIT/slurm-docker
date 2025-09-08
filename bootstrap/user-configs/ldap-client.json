@@ -1,0 +1,7 @@
+{
+  "id": "client",
+  "email": "none@none.com",
+  "groups": [
+    "lldap_strict_readonly"
+  ]
+}
