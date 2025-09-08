@@ -26,6 +26,9 @@ rm -f /etc/ssh/ssh_host_*_key{,.pub}
 [ -r /etc/ssh/keys/ssh_host_ecdsa_key ] || ssh-keygen -q -N "" -t ecdsa -f /etc/ssh/keys/ssh_host_ecdsa_key
 [ -r /etc/ssh/keys/ssh_host_ed25519_key ] || ssh-keygen -q -N "" -t ed25519 -f /etc/ssh/keys/ssh_host_ed25519_key
 
+mkdir -p /var/run/sshd
+chmod 0755 /var/run/sshd
+
 service syslog-ng start
 service munge start
 service slurmctld start
