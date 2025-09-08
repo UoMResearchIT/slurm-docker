@@ -2,8 +2,8 @@
 
 set -e
 
-echo "ldap_default_authtok = ${LLDAP_LDAP_USER_PASS}" >> /etc/sssd/sssd.conf
-
+echo "ldap_default_authtok = ${LLDAP_DEFAULT_AUTH_TOKEN}" >> /etc/sssd/sssd.conf
+unset LLDAP_DEFAULT_AUTH_TOKEN
 newpassword=$(pwgen -N 1 12)
 chpasswd <<< "user:${newpassword}"
 
