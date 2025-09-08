@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y \
     slurmd \
     sssd-ldap \
     sssd-tools \
+    emacs-nox \
     && rm -rf /var/lib/apt/lists/*
 
 COPY bin/docker-entrypoint.sh /etc/slurm-llnl/
