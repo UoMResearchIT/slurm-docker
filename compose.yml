@@ -8,7 +8,7 @@ services:
             - clusterscratch:/scratch
             - ./bin/docker-entrypoint.sh:/etc/slurm-llnl/docker-entrypoint.sh
             - ./etc/slurm.conf:/etc/slurm-llnl/slurm.conf
-            - ./etc/sssd.conf:/etc/sssd/sssd.conf
+#            - ./etc/sssd.conf:/etc/sssd/sssd.conf
             - clusterhome:/home
             - ./etc/sshd_sssd.conf:/etc/ssh/sshd_config.d/sssd.conf
             - hostkeys:/etc/ssh/keys
