@@ -19,6 +19,10 @@ touch /var/log/slurm-llnl/accounting.log
 chown slurm:slurm /var/log/slurm-llnl/accounting.log
 chmod a+r /var/log/slurm-llnl/accounting.log
 
+mkdir -p /etc/slurm-llnl/slurm.conf.d
+slurmd -C | head -n 1 >/etc/slurm-llnl/slurm.conf.d/nodes.conf
+chown slurm:slurm /etc/slurm-llnl/slurm.conf.d/nodes.conf
+
 rm -f /etc/ssh/ssh_host_*_key{,.pub}
 
 [ -r /etc/ssh/keys/ssh_host_dsa_key ] || ssh-keygen -q -N "" -t dsa -f /etc/ssh/keys/ssh_host_dsa_key
