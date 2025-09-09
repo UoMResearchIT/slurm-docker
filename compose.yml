@@ -12,6 +12,8 @@ services:
             - clusterhome:/home
             - ./etc/sshd_sssd.conf:/etc/ssh/sshd_config.d/sssd.conf
             - hostkeys:/etc/ssh/keys
+            - software:/cluster/software
+            - ./etc/spack/profile_spack_modules.sh:/etc/profile.d/spack-modules.sh
         ports:
             - "2022:22"
         restart: unless-stopped
@@ -67,9 +69,17 @@ services:
             environment:
               - LLDAP_DEFAULT_AUTH_TOKEN=${LLDAP_DEFAULT_AUTH_TOKEN?}
 
+    spack:
+      image: spack/ubuntu-focal:1.0.1
+      volumes:
+        - software:/cluster/software
+        - ./etc/spack/config.yaml:/opt/spack/etc/spack/config.yaml
+        - ./etc/spack/modules.yaml:/opt/spack/etc/spack/modules.yaml
+
 volumes:
     clusterstate:
     clusterscratch:
     clusterhome:
     hostkeys:
     lldap_data:
+    software:

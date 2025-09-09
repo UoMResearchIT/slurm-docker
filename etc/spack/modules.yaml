@@ -1,0 +1,11 @@
+modules:
+  default:
+    tcl:
+      hide_implicits: true
+      hash_length: 0
+      projections:
+        all: '{name}/{version}'
+    roots:
+      tcl: /cluster/software/modules
+    enable:
+      - tcl
