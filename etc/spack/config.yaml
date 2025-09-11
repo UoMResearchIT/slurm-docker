@@ -1,2 +1,3 @@
 config:
   install_tree: /cluster/software
+  environments_root: /cluster/software/envs
