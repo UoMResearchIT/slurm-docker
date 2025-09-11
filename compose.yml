@@ -1,6 +1,6 @@
 services:
     slurm:
-        hostname: slurm
+        hostname: cluster
         build:
             context: .
         volumes:
