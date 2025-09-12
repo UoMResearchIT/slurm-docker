@@ -8,6 +8,9 @@ spack:
     unify: true
 
   packages:
+    all:
+      require:
+        - x86_64
     slurm:
       externals:
         - spec: "slurm@slurm-23-11-1-1"
