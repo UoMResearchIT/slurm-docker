@@ -17,6 +17,7 @@ RUN apt-get update && apt-get install -y \
     emacs-nox \
     util-linux \
     python3-venv \
+    build-essential \
     && rm -rf /var/lib/apt/lists/*
 
 COPY bin/docker-entrypoint.sh /
