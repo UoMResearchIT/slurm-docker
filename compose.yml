@@ -1,5 +1,6 @@
 services:
     slurm:
+        platform: linux/amd64      
         hostname: cluster
         build:
             context: .
@@ -71,6 +72,7 @@ services:
               - LLDAP_DEFAULT_AUTH_TOKEN=${LLDAP_DEFAULT_AUTH_TOKEN?}
 
     spack:
+      platform: linux/amd64
       image: spack/ubuntu-focal:1.0.1
       volumes:
         - software:/cluster/software
