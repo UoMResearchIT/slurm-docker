@@ -14,6 +14,7 @@ services:
             - hostkeys:/etc/ssh/keys
             - software:/cluster/software
             - ./etc/spack/profile_spack_modules.sh:/etc/profile.d/spack-modules.sh
+            - ./test:/opt/test
         ports:
             - "2022:22"
         restart: unless-stopped
