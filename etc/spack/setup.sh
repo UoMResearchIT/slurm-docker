@@ -12,5 +12,5 @@ else
 fi
 
 spack env activate $envname
-spack concretize
+spack concretize --force
 spack install
