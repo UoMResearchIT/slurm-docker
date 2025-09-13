@@ -14,6 +14,6 @@ else
 fi
 
 spack env activate $envname
-spack concretize --force # this is a bit dangerous, but needed at the moment
+#spack concretize --force # this is a bit dangerous, but needed at the moment
 spack install
 spack module tcl refresh -y
