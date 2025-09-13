@@ -16,3 +16,11 @@ spack:
         - spec: "slurm@slurm-23-11-1-1"
           prefix: /usr
       buildable: False
+      
+  mirrors:
+    ghcr-mirror:
+      url: oci://ghcr.io/UoMResearchIT/buildcache-slurm-docker
+      access_pair:
+        id: x-token-id
+        secret_variable: GITHUB_TOKEN_PACKAGE_WRITE
+      signed: false

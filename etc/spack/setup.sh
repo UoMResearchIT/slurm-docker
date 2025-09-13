@@ -2,6 +2,8 @@
 
 set -eu
 
+source $SPACK_ROOT/share/spack/setup-env.sh
+
 envname="default"
 envpath="/cluster/software/envs/$envname"
 

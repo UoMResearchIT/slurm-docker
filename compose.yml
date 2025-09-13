@@ -80,6 +80,8 @@ services:
         - ./etc/spack/modules.yaml:/opt/spack/etc/spack/modules.yaml
         - ./etc/spack/envs:/opt/spack/envs
         - ./etc/spack/setup.sh:/opt/spack/setup.sh
+      environment:
+        - GITHUB_TOKEN_PACKAGE_WRITE=${GITHUB_TOKEN_PACKAGE_WRITE:-}
 
 volumes:
     clusterstate:
