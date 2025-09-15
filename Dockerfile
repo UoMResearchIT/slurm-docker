@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:20.04 AS base
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -12,8 +12,6 @@ RUN apt-get update && apt-get install -y \
     slurm-client \
     slurm-wlm-doc \
     slurm-wlm-doc \
-    slurmctld \
-    slurmd \
     sssd-ldap \
     sssd-tools \
     emacs-nox \
@@ -22,7 +20,6 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-COPY bin/docker-entrypoint.sh /
 COPY etc/slurm.conf /etc/slurm-llnl/
 COPY etc/sssd.conf /etc/sssd/sssd.conf
 COPY etc/defaults_sssd /etc/default/sssd
@@ -35,13 +32,27 @@ RUN pam-auth-update --enable mkhomedir
 
 RUN chmod -x /etc/update-motd.d/*
 
-RUN mkdir /state
-RUN chown slurm:slurm /state
-
 RUN mkdir /scratch
-RUN chown slurm:slurm /state
-
 RUN mkdir /scratch/user
 RUN chown user:user /scratch/user
 
-CMD ["/docker-entrypoint.sh"]
+
+FROM base AS compute
+
+RUN apt-get update && apt-get install -y \
+    slurmd \
+    && rm -rf /var/lib/apt/lists/*
+
+CMD ["/docker-entrypoint-compute.sh"]
+
+
+FROM base AS login
+
+RUN apt-get update && apt-get install -y \
+    slurmctld \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir /state
+RUN chown slurm:slurm /state
+
+CMD ["/docker-entrypoint-login.sh"]

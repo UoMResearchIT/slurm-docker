@@ -16,12 +16,12 @@ def test_srun_parallel():
 def test_salloc_mpirun_ntasks_1():
     result = subprocess.run(["salloc", "--quiet", "--ntasks=1", "bash", "-c",
         "module load openmpi; mpirun -np 1 hostname"], check=True, capture_output=True)
-    assert result.stdout.decode().strip() == "cluster"
+    assert result.stdout.decode().strip() == "compute01"
     
 def test_salloc_mpirun_ntasks_2():
     result = subprocess.run(["salloc", "--quiet", "--ntasks=2", "bash", "-c",
         "module load openmpi; mpirun -np 2 hostname"], check=True, capture_output=True)
-    assert result.stdout.decode().strip() == "cluster\ncluster"
+    assert result.stdout.decode().strip() == "compute01\ncompute01"
 
 def test_salloc_mpirun_ntasks_1_try_2():
     result = subprocess.run(["salloc", "--quiet", "--ntasks=1", "bash", "-c",

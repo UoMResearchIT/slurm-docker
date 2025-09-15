@@ -1,13 +1,8 @@
 #!/bin/bash
 
 set -e
-authtokfile=/etc/sssd/conf.d/ldap-auth.conf
-touch $authtokfile
-chmod u=rw,g=,o= $authtokfile
-cat <<EOF > $authtokfile
-[domain/LDAP]
-ldap_default_authtok = ${LLDAP_DEFAULT_AUTH_TOKEN}
-EOF
+
+/docker-entrypoint-common.sh
 
 unset LLDAP_DEFAULT_AUTH_TOKEN
 newpassword=$(pwgen -N 1 12)
@@ -19,10 +14,6 @@ touch /var/log/slurm-llnl/accounting.log
 chown slurm:slurm /var/log/slurm-llnl/accounting.log
 chmod a+r /var/log/slurm-llnl/accounting.log
 
-mkdir -p /etc/slurm-llnl/slurm.conf.d
-slurmd -C | head -n 1 >/etc/slurm-llnl/slurm.conf.d/nodes.conf
-chown slurm:slurm /etc/slurm-llnl/slurm.conf.d/nodes.conf
-
 rm -f /etc/ssh/ssh_host_*_key{,.pub}
 
 [ -r /etc/ssh/keys/ssh_host_dsa_key ] || ssh-keygen -q -N "" -t dsa -f /etc/ssh/keys/ssh_host_dsa_key
@@ -33,14 +24,10 @@ rm -f /etc/ssh/ssh_host_*_key{,.pub}
 mkdir -p /var/run/sshd
 chmod 0755 /var/run/sshd
 
-service syslog-ng start
-service munge start
 service slurmctld start
-service slurmd start
+#service slurmd start
 service ssh start
 
-rm -f /var/run/sssd.pid
-service sssd start
 
 while [ ! -r "/var/log/syslog" ]; do
     sleep 1

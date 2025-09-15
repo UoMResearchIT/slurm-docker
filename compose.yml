@@ -1,28 +1,45 @@
+
+x-common: &common
+  platform: linux/amd64      
+  volumes:
+      - clusterscratch:/scratch
+      - ./etc/slurm.conf:/etc/slurm-llnl/slurm.conf
+      - slurmnodeconfig:/etc/slurm-llnl/nodes
+#            - ./etc/sssd.conf:/etc/sssd/sssd.conf
+      - clusterhome:/home
+      - ./etc/sshd_sssd.conf:/etc/ssh/sshd_config.d/sssd.conf
+      - hostkeys:/etc/ssh/keys
+      - software:/cluster/software
+      - ./etc/spack/profile_spack_modules.sh:/etc/profile.d/spack-modules.sh
+      - ./test:/opt/test
+      - ./bin/docker-entrypoint-common.sh:/docker-entrypoint-common.sh
+      - ./bin/docker-entrypoint-login.sh:/docker-entrypoint-login.sh
+      - clusterstate:/state
+      - ./bin/docker-entrypoint-compute.sh:/docker-entrypoint-compute.sh
+  restart: unless-stopped
+  depends_on:
+      - lldap
+  environment:
+      - LLDAP_DEFAULT_AUTH_TOKEN=${LLDAP_DEFAULT_AUTH_TOKEN?}
+
 services:
     slurm:
-        platform: linux/amd64      
-        hostname: cluster
-        build:
-            context: .
-        volumes:
-            - clusterstate:/state
-            - clusterscratch:/scratch
-            - ./bin/docker-entrypoint.sh:/docker-entrypoint.sh
-            - ./etc/slurm.conf:/etc/slurm-llnl/slurm.conf
-#            - ./etc/sssd.conf:/etc/sssd/sssd.conf
-            - clusterhome:/home
-            - ./etc/sshd_sssd.conf:/etc/ssh/sshd_config.d/sssd.conf
-            - hostkeys:/etc/ssh/keys
-            - software:/cluster/software
-            - ./etc/spack/profile_spack_modules.sh:/etc/profile.d/spack-modules.sh
-            - ./test:/opt/test
-        ports:
-            - "2022:22"
-        restart: unless-stopped
-        depends_on:
-            - lldap
-        environment:
-            - LLDAP_DEFAULT_AUTH_TOKEN=${LLDAP_DEFAULT_AUTH_TOKEN?}
+      <<: *common
+      hostname: login
+      build:
+        target: login
+      ports:
+      - "2022:22"
+      # volumes:
+      # - ./bin/docker-entrypoint-login.sh:/docker-entrypoint-login.sh
+      # - clusterstate:/state
+    compute01:
+      <<: *common
+      hostname: compute01
+      build:
+        target: compute
+      # volumes:
+      # - ./bin/docker-entrypoint-compute.sh:/docker-entrypoint-compute.sh
 
     lldap:
         image: lldap/lldap:stable
@@ -90,3 +107,4 @@ volumes:
     hostkeys:
     lldap_data:
     software:
+    slurmnodeconfig:
