@@ -5,6 +5,11 @@ modules:
       hash_length: 0
       projections:
         all: '{name}/{version}'
+      openmpi::
+        environment:
+          prepend_path:
+            LD_LIBRARY_PATH: "{prefix}/lib"
+
     roots:
       tcl: /cluster/software/modules
     enable:
