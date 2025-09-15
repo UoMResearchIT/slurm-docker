@@ -48,6 +48,10 @@ CMD ["/docker-entrypoint-compute.sh"]
 
 FROM base AS login
 
+CMD ["/docker-entrypoint-login.sh"]
+
+FROM base AS slurm
+
 RUN apt-get update && apt-get install -y \
     slurmctld \
     && rm -rf /var/lib/apt/lists/*
@@ -55,4 +59,4 @@ RUN apt-get update && apt-get install -y \
 RUN mkdir /state
 RUN chown slurm:slurm /state
 
-CMD ["/docker-entrypoint-login.sh"]
+CMD ["/docker-entrypoint-slurm.sh"]
