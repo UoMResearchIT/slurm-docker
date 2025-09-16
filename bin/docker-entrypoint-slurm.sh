@@ -10,6 +10,14 @@ touch /var/log/slurm-llnl/accounting.log
 chown slurm:slurm /var/log/slurm-llnl/accounting.log
 chmod a+r /var/log/slurm-llnl/accounting.log
 
+
+nodesfile=/etc/slurm-llnl/nodes/nodes.conf
+echo "Waiting for $nodesfile to be created"
+
+while [ ! -f "$nodesfile" ]; do
+    sleep 1
+done
+
 service slurmctld start
 
 while [ ! -r "/var/log/syslog" ]; do
