@@ -7,8 +7,9 @@ set -e
 unset LLDAP_DEFAULT_AUTH_TOKEN
 
 mkdir -p /etc/slurm-llnl/nodes
-slurmd -C | head -n 1 >/etc/slurm-llnl/nodes/nodes.conf
-chown slurm:slurm /etc/slurm-llnl/nodes/nodes.conf
+slurmd -C | head -n 1 >/etc/slurm-llnl/nodes/nodes.conf.tmp
+chown slurm:slurm /etc/slurm-llnl/nodes/nodes.conf.tmp
+mv /etc/slurm-llnl/nodes/nodes.conf.tmp /etc/slurm-llnl/nodes/nodes.conf
 
 service slurmd start
 
