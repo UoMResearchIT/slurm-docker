@@ -7,6 +7,8 @@ modules:
         all: '{name}/{version}'
       openmpi::
         environment:
+          set:
+            PRTE_MCA_rmaps_default_mapping_policy: core:HWTCPUS
           prepend_path:
             LD_LIBRARY_PATH: "{prefix}/lib"
 
