@@ -30,7 +30,7 @@ services:
       build:
         target: login
       ports:
-      - "2022:22"
+      - "${SSH_PORT:-2022}:22"
     slurm:
       <<: *common
       hostname: slurm
