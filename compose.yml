@@ -17,6 +17,7 @@ x-common: &common
       - ./bin/docker-entrypoint-slurm.sh:/docker-entrypoint-slurm.sh
       - ./bin/docker-entrypoint-compute.sh:/docker-entrypoint-compute.sh
       - clusterstate:/state
+      - slurmlog:/var/log/slurm-llnl
   restart: unless-stopped
   depends_on:
       - lldap
@@ -109,3 +110,4 @@ volumes:
     lldap_data:
     software:
     slurmnodeconfig:
+    slurmlog:
