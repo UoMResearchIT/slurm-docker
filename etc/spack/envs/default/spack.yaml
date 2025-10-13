@@ -4,6 +4,7 @@ spack:
   - openmpi schedulers=slurm
   - lammps
   - python@3.13.5
+  - imagemagick
   view: true
   concretizer:
     unify: true
