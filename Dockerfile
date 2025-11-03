@@ -42,27 +42,23 @@ RUN chown user:user /scratch/user
 RUN ln -fs /usr/share/zoneinfo/Europe/London /etc/localtime
 
 FROM base AS compute
-
 RUN apt-get update && apt-get install -y \
     slurmd \
     && rm -rf /var/lib/apt/lists/*
-
 CMD ["/docker-entrypoint-compute.sh"]
 
 
 FROM base AS login
-
 RUN apt-get update && apt-get install -y \
     rsync \
     && rm -rf /var/lib/apt/lists/*
 CMD ["/docker-entrypoint-login.sh"]
 
-FROM base AS slurm
 
+FROM base AS slurm
 RUN apt-get update && apt-get install -y \
     slurmctld \
     && rm -rf /var/lib/apt/lists/*
-
 RUN mkdir /state
 RUN chown slurm:slurm /state
 
