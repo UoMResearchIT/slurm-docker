@@ -51,6 +51,7 @@ CMD ["/docker-entrypoint-compute.sh"]
 FROM base AS login
 RUN apt-get update && apt-get install -y \
     rsync \
+    feh \
     && rm -rf /var/lib/apt/lists/*
 CMD ["/docker-entrypoint-login.sh"]
 
