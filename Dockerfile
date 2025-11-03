@@ -39,6 +39,7 @@ RUN mkdir /scratch
 RUN mkdir /scratch/user
 RUN chown user:user /scratch/user
 
+RUN ln -fs /usr/share/zoneinfo/Europe/London /etc/localtime
 
 FROM base AS compute
 
