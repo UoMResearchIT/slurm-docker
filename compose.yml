@@ -64,6 +64,7 @@ services:
             - UID=1000
             - GID=1000
             - TZ=Europe/London
+            - LLDAP_VERBOSE=false
             - LLDAP_JWT_SECRET=${LLDAP_JWT_SECRET?}
             - LLDAP_KEY_SEED=${LLDAP_KEY_SEED?}
             - LLDAP_LDAP_BASE_DN=dc=royce-hpc-training,dc=org
