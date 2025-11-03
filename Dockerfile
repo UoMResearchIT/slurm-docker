@@ -2,7 +2,10 @@ FROM ubuntu:20.04 AS base
 
 ARG DEBIAN_FRONTEND=noninteractive
 
+RUN yes | unminimize
+
 RUN apt-get update && apt-get install -y \
+    man \
     curl \
     less syslog-ng-core \
     mailutils \
