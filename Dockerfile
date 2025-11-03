@@ -18,7 +18,6 @@ RUN apt-get update && apt-get install -y \
     bsdmainutils \
     python3-venv \
     build-essential \
-    rsync \
     && rm -rf /var/lib/apt/lists/*
 
 COPY etc/slurm.conf /etc/slurm-llnl/
@@ -49,6 +48,9 @@ CMD ["/docker-entrypoint-compute.sh"]
 
 FROM base AS login
 
+RUN apt-get update && apt-get install -y \
+    rsync \
+    && rm -rf /var/lib/apt/lists/*
 CMD ["/docker-entrypoint-login.sh"]
 
 FROM base AS slurm
