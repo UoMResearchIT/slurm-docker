@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y \
     bsdmainutils \
     python3-venv \
     build-essential \
+    rsync \
     && rm -rf /var/lib/apt/lists/*
 
 COPY etc/slurm.conf /etc/slurm-llnl/
